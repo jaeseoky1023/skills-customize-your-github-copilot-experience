@@ -72,6 +72,20 @@
           "type": "python"
         }
       ]
+    },
+    {
+      "id": "activity-dashboard",
+      "title": "School Activity Dashboard",
+      "description": "Connect a JavaScript dashboard to the School Activities REST API",
+      "path": "assignments/activity-dashboard",
+      "dueDate": "2026-10-07",
+      "attachments": [
+        {
+          "name": "Starter Code",
+          "file": "starter-code.html",
+          "type": "html"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>School Activity Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.5;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 2rem;
+        color: #1f2937;
+      }
+
+      h1 {
+        margin-bottom: 0.25rem;
+      }
+
+      form,
+      .activity-card {
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+
+      form {
+        display: grid;
+        gap: 0.75rem;
+        background: #f3f4f6;
+      }
+
+      label {
+        display: grid;
+        gap: 0.25rem;
+        font-weight: bold;
+      }
+
+      input,
+      textarea,
+      button {
+        font: inherit;
+        padding: 0.5rem;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .activity-list {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .activity-card {
+        margin: 0;
+      }
+
+      .activity-card h3 {
+        margin-top: 0;
+      }
+
+      .status {
+        min-height: 1.5rem;
+        font-weight: bold;
+      }
+
+      .error {
+        color: #b91c1c;
+      }
+
+      .success {
+        color: #166534;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>School Activity Dashboard</h1>
+    <p>Browse and manage activities at Mergington High School.</p>
+
+    <form id="activity-form">
+      <h2>Add an Activity</h2>
+      <label>
+        Name
+        <input id="name" name="name" required />
+      </label>
+      <label>
+        Description
+        <textarea id="description" name="description" required></textarea>
+      </label>
+      <label>
+        Capacity
+        <input id="capacity" name="capacity" type="number" min="1" required />
+      </label>
+      <button type="submit">Add Activity</button>
+    </form>
+
+    <p id="status" class="status" aria-live="polite"></p>
+    <section>
+      <h2>Activities</h2>
+      <div id="activity-list" class="activity-list"></div>
+    </section>
+
+    <script>
+      const API_URL = "http://localhost:8000/activities";
+      const activityForm = document.querySelector("#activity-form");
+      const activityList = document.querySelector("#activity-list");
+      const statusMessage = document.querySelector("#status");
+
+      function setStatus(message, type = "") {
+        statusMessage.textContent = message;
+        statusMessage.className = `status ${type}`;
+      }
+
+      function renderActivities(activities) {
+        activityList.replaceChildren();
+
+        activities.forEach((activity) => {
+          const card = document.createElement("article");
+          card.className = "activity-card";
+          card.innerHTML = `
+            <h3>${activity.name}</h3>
+            <p>${activity.description}</p>
+            <p>Capacity: ${activity.capacity}</p>
+            <button data-activity-id="${activity.id}">Delete</button>
+          `;
+          activityList.append(card);
+        });
+      }
+
+      async function loadActivities() {
+        // TODO: Fetch the activities and render them.
+      }
+
+      async function addActivity(event) {
+        event.preventDefault();
+        // TODO: Validate the form and send a POST request.
+      }
+
+      async function deleteActivity(activityId) {
+        // TODO: Send a DELETE request and reload the activities.
+      }
+
+      activityForm.addEventListener("submit", addActivity);
+      activityList.addEventListener("click", (event) => {
+        if (event.target.matches("[data-activity-id]")) {
+          deleteActivity(event.target.dataset.activityId);
+        }
+      });
+
+      loadActivities();
+    </script>
+  </body>
+</html>
